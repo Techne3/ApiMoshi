@@ -2,9 +2,8 @@ package com.example.apimoshi.network
 
 class ApiManager {
 
-    private var todoService: TodoService =
-        RetrofitInstance.providesRetrofit().create(TodoService::class.java)
+    private var userService: UserService =
+        RetrofitInstance.providesRetrofit().create(UserService::class.java)
 
-    suspend fun getTodos() = todoService.getTodos()
-
+    suspend fun getUsers() = userService.getUsers()
 }

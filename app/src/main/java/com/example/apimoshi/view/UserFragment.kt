@@ -1,22 +1,25 @@
 package com.example.apimoshi.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.apimoshi.TAG
 import com.example.apimoshi.databinding.FragmentTodoBinding
 import com.example.apimoshi.network.ApiManager
-import com.example.apimoshi.repository.TodoRepository
-import com.example.apimoshi.viewmodel.TodoViewModel
+import com.example.apimoshi.repository.UserRepository
+import com.example.apimoshi.viewmodel.UserViewModel
 
-class TodoFragment :Fragment(){
-    private var _binding: FragmentTodoBinding? = null
-    private val binding: FragmentTodoBinding get() = _binding!!
+class UserFragment : Fragment() {
 
-    private val viewModel: TodoViewModel by activityViewModels {
-        TodoViewModel.Factory(TodoRepository(ApiManager()))
+    private var _binding : FragmentTodoBinding? = null
+    private val binding : FragmentTodoBinding get() = _binding!!
+
+    private val viewModel: UserViewModel by activityViewModels {
+        UserViewModel.Factory(UserRepository(ApiManager()))
     }
 
     override fun onCreateView(
@@ -24,23 +27,22 @@ class TodoFragment :Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTodoBinding.inflate(inflater, container, false)
+        _binding = FragmentTodoBinding.inflate(inflater,container,false )
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.todos.observe(viewLifecycleOwner) {
-            binding.todoTv.text = it.toString()
+        viewModel.users.observe(viewLifecycleOwner) {
+            Log.d(TAG,"Inside UserFragment: onViewCreated : observe block: it is ${it.toString()}")
 
+
+            binding.tvUser.text = it.toString()
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }
