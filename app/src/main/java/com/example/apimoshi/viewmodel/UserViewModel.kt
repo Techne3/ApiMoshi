@@ -20,7 +20,8 @@ class UserViewModel( private val userRepository: UserRepository) : ViewModel(){
     private fun getUsers() {
         viewModelScope.launch {
             val response = userRepository.getUsers()
-            Log.d(TAG, "Inside UserViewModel : getUsers() : coroutine : response is $response")
+            Log.d(TAG, "$response")
+            Log.d(TAG, "Here are the users $users")
             _users.postValue(response)
         }
     }
